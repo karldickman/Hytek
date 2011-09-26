@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ngol.Hytek.Interfaces;
+using Ngol.Utilities.Collections.Extensions;
 using Ngol.Utilities.TextFormat;
 
 namespace Ngol.Hytek
@@ -29,7 +30,6 @@ namespace Ngol.Hytek
         {
             Alignment R = StringFormatting.RightJustified;
             Alignment[] alignments = new Alignment[] { R, null, R, R, R, R, R, R, R, R };
-            IPerformance runner;
             IList<IList> values = new List<IList>();
             int i = 0;
             foreach(ITeamScore score in scores)
@@ -45,25 +45,23 @@ namespace Ngol.Hytek
                 }
                 valueRow.Add(score.Team.Name);
                 valueRow.Add(score.Score);
-                for(int j = 0; j < 7; j++)
+                score.Performances.Take(7).ForEachIndexed((runner, j) =>
                 {
-                    if(j < score.Performances.Count)
+                    if(j < score.Performances.Count())
                     {
-                        runner = score.Performances[j];
                         valueRow.Add(runner.Points);
                     }
-
                     else
                     {
                         valueRow.Add(null);
                     }
-                }
+                });
                 values.Add(valueRow);
                 valueRow = new object[Header.Count];
                 valueRow[1] = "  Top 5 Avg: ";
                 valueRow[1] += FormatTime(score.TopFiveAverage);
                 values.Add(valueRow);
-                if(score.Performances.Count > 5)
+                if(score.Performances.Count() > 5)
                 {
                     valueRow = new object[Header.Count];
                     valueRow[1] = "  Top 7 Avg: ";

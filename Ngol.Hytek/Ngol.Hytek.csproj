@@ -64,5 +64,9 @@
       <Project>{977780FE-A189-4C4C-B1C6-CC6C38D81D81}</Project>
       <Name>Ngol.Utilities.TextFormat.Table</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Ngol.Utilities.System\Ngol.Utilities.System.csproj">
+      <Project>{B53B9249-70AC-4414-95A8-0E7838885C2B}</Project>
+      <Name>Ngol.Utilities.System</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ namespace Ngol.Hytek.Interfaces
         /// <summary>
         /// The runners on the team.
         /// </summary>
-        IList<IPerformance> Performances
+        IEnumerable<IPerformance> Performances
         {
             get;
         }
@@ -19,7 +19,10 @@ namespace Ngol.Hytek.Interfaces
         /// <summary>
         /// The total points earned by the team.
         /// </summary>
-        int? Score { get; }
+        int? Score
+        {
+            get;
+        }
 
         /// <summary>
         /// The team that earned the score.
@@ -41,7 +44,9 @@ namespace Ngol.Hytek.Interfaces
         /// The average of the top seven times.
         /// </summary>
         double TopSevenAverage
-        { get; }
+        {
+            get;
+        }
     }
 }
 
