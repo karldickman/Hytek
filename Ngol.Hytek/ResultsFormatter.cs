@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ngol.Hytek.Interfaces;
+using Ngol.Utilities.Collections.Extensions;
 using Ngol.Utilities.TextFormat;
+using Ngol.Utilities.TextFormat.Table;
 
 namespace Ngol.Hytek
 {
@@ -45,40 +47,31 @@ namespace Ngol.Hytek
         /// </param>
         public IEnumerable<string> Format(IOrderedEnumerable<IPerformance> results)
         {
-            Alignment[] alignments = new Alignment[] { StringFormatting.RightJustified, null, null, null, null, AlignPoints };
-            IList<IList> values = new List<IList>();
-            int i = 0;
-            foreach(IPerformance result in results)
+            IEnumerable<Alignment> alignments = new Alignment[] { StringFormatting.RightJustified, null, null, null, null, AlignPoints };
+            IEnumerable<IEnumerable<object>> values = results.Select(1, (result, place) =>
             {
-                object[] valueRow = new object[Header.Count];
-                int n = 0;
-                valueRow[n++] = (i + 1).ToString();
-                valueRow[n++] = result.Runner.Name;
-                valueRow[n++] = result.Runner.EnrollmentYear.ToString();
-                if(result.Team == null)
-                {
-                    valueRow[n++] = "";
-                }
-
-                else
-                {
-                    valueRow[n++] = result.Team.Name;
-                }
+                ICollection<string> valueRow = new List<string> {
+                    place.ToString(),
+                    result.Runner.Name,
+                    result.Runner.EnrollmentYear.ToString(),
+                };
+                valueRow.Add(result.Team == null ? string.Empty : result.Team.Name);
                 if(result.Time != null)
                 {
-                    valueRow[n++] = FormatTime(result.Time.Value);
-                    valueRow[n++] = result.Points.ToString();
+                    valueRow.Add(FormatTime(result.Time.Value));
+                    valueRow.Add(result.Points.ToString());
                 }
-
                 else
                 {
-                    valueRow[n++] = "DNF";
-                    valueRow[n++] = "";
+                    valueRow.Add("DNF");
+                    valueRow.Add(string.Empty);
                 }
-                values.Add(valueRow);
-                i++;
+                return valueRow.Cast<object>();
+            });
+            foreach(string line in base.Format(values, alignments))
+            {
+                yield return line;
             }
-            return base.Format(values, alignments);
         }
 
         /// <summary>
@@ -95,9 +88,8 @@ namespace Ngol.Hytek
         /// </param>
         public IEnumerable<string> Format(Gender gender, int distance, IEnumerable<IPerformance> results)
         {
-            Title = gender == Gender.Male ? "Men's " : "Women's ";
-            Title += distance + " m run CC";
-            return Format(results.OrderBy(performance => performance));
+            Title = string.Format("{0} {1} m run CC", gender == Gender.Male ? "Men's " : "Women's ", distance);
+            return Format(results.Sorted());
         }
     }
 }

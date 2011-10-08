@@ -13,6 +13,8 @@ namespace Ngol.Hytek
     /// </summary>
     public class ScoreFormatter : HytekFormatter, IFormatter<IOrderedEnumerable<ITeamScore>>
     {
+        #region Constructors
+
         /// <summary>
         /// Create a new formatter.
         /// </summary>
@@ -20,57 +22,60 @@ namespace Ngol.Hytek
         {
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Format the team scores.
         /// </summary>
         /// <param name="scores">
         /// The scores to format.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="scores"/> is <see langword="null" />.
+        /// </exception>
         public IEnumerable<string> Format(IOrderedEnumerable<ITeamScore> scores)
         {
+            if(scores == null)
+                throw new ArgumentNullException("scores");
             Alignment R = StringFormatting.RightJustified;
-            Alignment[] alignments = new Alignment[] { R, null, R, R, R, R, R, R, R, R };
-            IList<IList> values = new List<IList>();
-            int i = 0;
-            foreach(ITeamScore score in scores)
+            IEnumerable<Alignment> alignments = new List<Alignment> { R, null, R, R, R, R, R, R, R, R };
+            IEnumerable<IEnumerable<object>> values = scores.SelectMany<ITeamScore, IEnumerable<object>>(1, FormatTeamScore);
+            return base.Format(values, alignments);
+        }
+
+        private IEnumerable<IEnumerable<object>> FormatTeamScore(ITeamScore score, int place)
+        {
+            ICollection<string> valueRow = new List<string>();
+            valueRow.Add(score.Score.HasValue ? place.ToString() : null);
+            valueRow.Add(score.Team.Name);
+            valueRow.Add(score.Score.ToString());
+            score.Performances.Take(7).ForEachIndexed((runner, j) =>
             {
-                IList valueRow = new ArrayList();
-                if(score.Score != null)
+                if(j < score.Performances.Count())
                 {
-                    valueRow.Add(i + 1);
+                    valueRow.Add(runner.Points.ToString());
                 }
                 else
                 {
                     valueRow.Add(null);
                 }
-                valueRow.Add(score.Team.Name);
-                valueRow.Add(score.Score);
-                score.Performances.Take(7).ForEachIndexed((runner, j) =>
-                {
-                    if(j < score.Performances.Count())
-                    {
-                        valueRow.Add(runner.Points);
-                    }
-                    else
-                    {
-                        valueRow.Add(null);
-                    }
-                });
-                values.Add(valueRow);
-                valueRow = new object[Header.Count];
-                valueRow[1] = "  Top 5 Avg: ";
-                valueRow[1] += FormatTime(score.TopFiveAverage);
-                values.Add(valueRow);
-                if(score.Performances.Count() > 5)
-                {
-                    valueRow = new object[Header.Count];
-                    valueRow[1] = "  Top 7 Avg: ";
-                    valueRow[1] += FormatTime(score.TopSevenAverage);
-                    values.Add(valueRow);
-                }
-                i++;
+            });
+            yield return valueRow.Cast<object>();
+            valueRow = new List<string> {
+                "  Top 5 Avg: " + FormatTime(score.TopFiveAverage),
+            };
+            yield return valueRow.Cast<object>();
+            if(score.Performances.Count() > 5)
+            {
+                valueRow = new List<string> {
+                    "  Top 7 Avg: " + FormatTime(score.TopSevenAverage),
+                };
+                yield return valueRow.Cast<object>();
             }
-            return base.Format(values, alignments);
         }
+
+        #endregion
     }
 }

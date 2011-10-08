@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Ngol.Hytek</RootNamespace>
     <AssemblyName>Hytek</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IMeet.cs" />
     <Compile Include="Interfaces\IRunner.cs" />
     <Compile Include="Interfaces\ITeam.cs" />
+    <Compile Include="Interfaces\IPerformanceExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

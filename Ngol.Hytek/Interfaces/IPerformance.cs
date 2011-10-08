@@ -5,12 +5,23 @@ namespace Ngol.Hytek.Interfaces
     /// <summary>
     /// Interface to which performances must conform.
     /// </summary>
-    public interface IPerformance
+    public interface IPerformance : IComparable<IPerformance>
     {
         /// <summary>
         /// The points awarded for the performance.
         /// </summary>
-        int Points { get; }
+        int? Points
+        {
+            get;
+        }
+
+        /// <summary>
+        /// The length of the race in meters.
+        /// </summary>
+        int RaceDistance
+        {
+            get;
+        }
 
         /// <summary>
         /// The runner who achieved the performance.
@@ -31,7 +42,10 @@ namespace Ngol.Hytek.Interfaces
         /// <summary>
         /// The time, in seconds, the runner ran.
         /// </summary>
-        double? Time { get; }
+        double? Time
+        {
+            get;
+        }
     }
 }
 

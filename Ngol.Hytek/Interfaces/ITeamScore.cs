@@ -6,8 +6,16 @@ namespace Ngol.Hytek.Interfaces
     /// <summary>
     /// Interface to which team scores must conform.
     /// </summary>
-    public interface ITeamScore
+    public interface ITeamScore : IComparable<ITeamScore>
     {
+        /// <summary>
+        /// The number of runners on the team who finished.
+        /// </summary>
+        int FinisherCount
+        {
+            get;
+        }
+
         /// <summary>
         /// The runners on the team.
         /// </summary>

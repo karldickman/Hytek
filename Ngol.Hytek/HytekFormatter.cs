@@ -10,14 +10,14 @@ namespace Ngol.Hytek
     /// <summary>
     /// A formatter that produces Hytek-style tables.
     /// </summary>
-    public partial class HytekFormatter
+    public class HytekFormatter
     {
         #region Properties
 
         /// <summary>
         /// The Header of the hytek table.
         /// </summary>
-        public IList<string> Header
+        public IEnumerable<string> Header
         {
             get;
             set;
@@ -96,25 +96,17 @@ namespace Ngol.Hytek
         /// <param name="alignments">
         /// The alignments of the columns.
         /// </param>
-        protected IEnumerable<string> Format(IList<IList> values, IList<Alignment> alignments)
+        protected IEnumerable<string> Format(IEnumerable<IEnumerable<object>> values, IEnumerable<Alignment> alignments)
         {
-            IList header = new List<object>();
-            foreach(string title in Header)
+            IEnumerable<string> lines = TableFormatter.Format(Header.Cast<object>(), values, alignments);
+            if(Title != null)
             {
-                header.Add(title);
+                yield return StringFormatting.Centered(Title, lines.Max(line => lines.Count()));
             }
-            IEnumerable<string> tableLines = TableFormatter.Format(header, values, alignments);
-            ICollection<string> lines = new List<string>();
-            if(Title == null)
+            foreach(string line in lines)
             {
-                return tableLines;
+                yield return line;
             }
-            lines.Add(StringFormatting.Centered(Title, tableLines.First().Length));
-            foreach(string line in tableLines)
-            {
-                lines.Add(line);
-            }
-            return lines;
         }
 
         #endregion

@@ -70,8 +70,9 @@ namespace Ngol.Hytek
         /// </param>
         public IEnumerable<string> Format(IRace race, bool showHeader)
         {
-            IEnumerable<string> resultsLines = ResultsFormatter.Format(race.Gender, race.Distance, race.Results);
-            int width = resultsLines.First().Length;
+            // Convert to list to ensure that enumeration happens only once
+            IEnumerable<string> resultsLines = ResultsFormatter.Format(race.Gender, race.Distance, race.Results).ToList();
+            int width = resultsLines.Max(line => line.Length);
             if(showHeader)
             {
                 yield return StringFormatting.Centered(race.Meet.Name, width);
