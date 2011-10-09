@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Ngol.Utilities.TextFormat;
 using Ngol.Utilities.TextFormat.Table;
@@ -14,32 +15,46 @@ namespace Ngol.Hytek
     {
         #region Properties
 
+        #region Physical implementation
+
+        private DataTable _table;
+
+        #endregion
+
         /// <summary>
-        /// The Header of the hytek table.
+        /// The <see cref="DataTable" /> underlying this table.
         /// </summary>
-        public IEnumerable<string> Header
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if an attempt is made to set this property to <see langword="null" />.
+        /// </exception>
+        public DataTable Table
         {
-            get;
-            set;
+            get { return _table; }
+
+            set
+            {
+                if(value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                _table = value;
+            }
         }
 
         /// <summary>
-        /// The title of the table.
+        /// The title of the <see cref="Table" />.
         /// </summary>
         public string Title
         {
-            get;
-            set;
+            get { return Table.TableName; }
+
+            protected set { Table.TableName = value; }
         }
 
         /// <summary>
-        /// The table formatter used internally.
+        /// The <see cref="TableFormatter" /> used internally.
         /// </summary>
-        public LabeledTableFormatter TableFormatter
-        {
-            get;
-            set;
-        }
+        protected readonly LabeledTableFormatter TableFormatter;
 
         #endregion
 
@@ -48,26 +63,19 @@ namespace Ngol.Hytek
         /// <summary>
         /// Create a formatter that produces tables without titles.
         /// </summary>
-        /// <param name="header">
-        /// A <see cref="System.String[]"/>.  The header of the table.
+        /// <param name="table">
+        /// The <see cref="DataTable" /> to format.
         /// </param>
-        public HytekFormatter(IList<string> header) : this(null, header)
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="table"/> is <see langword="null" />.
+        /// </exception>
+        public HytekFormatter(DataTable table)
         {
-        }
-
-        /// <summary>
-        /// Create a formatter that produces tables with titles.
-        /// </summary>
-        /// <param name="title">
-        /// A <see cref="System.String"/>.  The title of the table.
-        /// </param>
-        /// <param name="header">
-        /// A <see cref="System.String[]"/>.  The header of the table.
-        /// </param>
-        public HytekFormatter(string title, IList<string> header)
-        {
-            Title = title;
-            Header = header;
+            if(table == null)
+            {
+                throw new ArgumentNullException("table");
+            }
+            Table = table;
             TableFormatter = new LabeledTableFormatter('\0', ' ', '\0', '=', '\0', '=', '\0', '=');
         }
 
@@ -88,17 +96,21 @@ namespace Ngol.Hytek
         }
 
         /// <summary>
-        /// Format a list of values.
+        /// Format the <see cref="Table" />.
         /// </summary>
-        /// <param name="values">
-        /// A sequence of values to format.
-        /// </param>
         /// <param name="alignments">
         /// The alignments of the columns.
         /// </param>
-        protected IEnumerable<string> Format(IEnumerable<IEnumerable<object>> values, IEnumerable<Alignment> alignments)
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="alignments"/> is <see langword="null" />.
+        /// </exception>
+        protected IEnumerable<string> Format(IEnumerable<Func<object, int, string>> alignments)
         {
-            IEnumerable<string> lines = TableFormatter.Format(Header.Cast<object>(), values, alignments);
+            if(alignments == null)
+            {
+                throw new ArgumentNullException("alignments");
+            }
+            IEnumerable<string > lines = TableFormatter.Format(Table, alignments);
             if(Title != null)
             {
                 yield return StringFormatting.Centered(Title, lines.Max(line => lines.Count()));

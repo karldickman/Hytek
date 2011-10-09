@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Ngol.Hytek.Interfaces;
 using Ngol.Utilities.Collections.Extensions;
@@ -18,13 +19,35 @@ namespace Ngol.Hytek
         /// <summary>
         /// Create a new formatter.
         /// </summary>
-        public ScoreFormatter() : base("Team Scores", new string[] { "Rank", "Team", "Total", "   1", "   2", "   3", "   4", "   5", "  *6", "  *7" })
+        public ScoreFormatter() : base(NewDataTable("Team Scores"))
         {
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Create the new <see cref="DataTable" /> to be formatted.
+        /// </summary>
+        /// <param name="tableName">
+        /// The name to give the <see cref="DataTable" />.
+        /// </param>
+        protected static DataTable NewDataTable(string tableName)
+        {
+            DataTable dataTable = new DataTable(tableName);
+            dataTable.Columns.Add("Rank", typeof(int?));
+            dataTable.Columns.Add("Team", typeof(string));
+            dataTable.Columns.Add("Total");
+            dataTable.Columns.Add("   1", typeof(int?));
+            dataTable.Columns.Add("   2", typeof(int?));
+            dataTable.Columns.Add("   3", typeof(int?));
+            dataTable.Columns.Add("   4", typeof(int?));
+            dataTable.Columns.Add("   5", typeof(int?));
+            dataTable.Columns.Add("  *6", typeof(int?));
+            dataTable.Columns.Add("  *7", typeof(int?));
+            return dataTable;
+        }
 
         /// <summary>
         /// Format the team scores.
@@ -38,42 +61,33 @@ namespace Ngol.Hytek
         public IEnumerable<string> Format(IOrderedEnumerable<ITeamScore> scores)
         {
             if(scores == null)
+            {
                 throw new ArgumentNullException("scores");
-            Alignment R = StringFormatting.RightJustified;
-            IEnumerable<Alignment> alignments = new List<Alignment> { R, null, R, R, R, R, R, R, R, R };
-            IEnumerable<IEnumerable<object>> values = scores.SelectMany<ITeamScore, IEnumerable<object>>(1, FormatTeamScore);
-            return base.Format(values, alignments);
-        }
-
-        private IEnumerable<IEnumerable<object>> FormatTeamScore(ITeamScore score, int place)
-        {
-            ICollection<string> valueRow = new List<string>();
-            valueRow.Add(score.Score.HasValue ? place.ToString() : null);
-            valueRow.Add(score.Team.Name);
-            valueRow.Add(score.Score.ToString());
-            score.Performances.Take(7).ForEachIndexed((runner, j) =>
-            {
-                if(j < score.Performances.Count())
-                {
-                    valueRow.Add(runner.Points.ToString());
-                }
-                else
-                {
-                    valueRow.Add(null);
-                }
-            });
-            yield return valueRow.Cast<object>();
-            valueRow = new List<string> {
-                "  Top 5 Avg: " + FormatTime(score.TopFiveAverage),
-            };
-            yield return valueRow.Cast<object>();
-            if(score.Performances.Count() > 5)
-            {
-                valueRow = new List<string> {
-                    "  Top 7 Avg: " + FormatTime(score.TopSevenAverage),
-                };
-                yield return valueRow.Cast<object>();
             }
+            IEnumerable<Func<object, int, string >> alignments = new Func<object, int, string>[] {
+                StringFormatting.RightJustified,
+                StringFormatting.LeftJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+                StringFormatting.RightJustified,
+            };
+            scores.ForEachIndexed((score, place) =>
+            {
+                int?[] points = new int?[7];
+                score.Performances.Take(7).ForEachIndexed((runner, i) =>
+                {
+                    points[i] = runner.Points;
+                });
+                Table.Rows.Add(score.Score.HasValue ? new int?(place) : null, score.Team, score.Score, points[0], points[1], points[2], points[3], points[4], points[5], points[6]);
+                Table.Rows.Add(null, "  Top 5 Avg: " + FormatTime(score.TopFiveAverage));
+                Table.Rows.Add(null, "  Top 7 Avg: " + FormatTime(score.TopSevenAverage));
+            });
+            return base.Format(alignments);
         }
 
         #endregion

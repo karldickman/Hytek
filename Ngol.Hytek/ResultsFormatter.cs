@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Ngol.Hytek.Interfaces;
 using Ngol.Utilities.Collections.Extensions;
@@ -14,29 +15,32 @@ namespace Ngol.Hytek
     /// </summary>
     public class ResultsFormatter : HytekFormatter, IFormatter<IOrderedEnumerable<IPerformance>>
     {
+        #region Constructors
+
         /// <summary>
         /// Create a new formatter.
         /// </summary>
-        public ResultsFormatter() : base(new string[] { null, "Name", "Year", "School", "Finals", "Points" })
+        public ResultsFormatter() : base(NewDataTable())
         {
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// The alignment used for points.
+        /// Create the new <see cref="DataTable" /> to be formatted.
         /// </summary>
-        /// <param name="points">
-        /// A <see cref="System.Object"/>.  The points the runner got.
-        /// </param>
-        /// <param name="width">
-        /// A <see cref="System.Int32"/>.  The width of the desired string.
-        /// </param>
-        /// <returns>
-        /// A <see cref="System.String"/>.  If points is wider than width, this
-        /// is the same as points.ToString().
-        /// </returns>
-        public static string AlignPoints(object points, int width)
+        protected static DataTable NewDataTable()
         {
-            return StringFormatting.RightPadded(points, 3) + "   ";
+            DataTable table = new DataTable();
+            table.Columns.Add("", typeof(int));
+            table.Columns.Add("Name", typeof(IRunner));
+            table.Columns.Add("Year", typeof(int));
+            table.Columns.Add("School", typeof(ITeam));
+            table.Columns.Add("Finals", typeof(double));
+            table.Columns.Add("Points", typeof(int?));
+            return table;
         }
 
         /// <summary>
@@ -47,31 +51,26 @@ namespace Ngol.Hytek
         /// </param>
         public IEnumerable<string> Format(IOrderedEnumerable<IPerformance> results)
         {
-            IEnumerable<Alignment> alignments = new Alignment[] { StringFormatting.RightJustified, null, null, null, null, AlignPoints };
-            IEnumerable<IEnumerable<object>> values = results.Select(1, (result, place) =>
+            IEnumerable<Func<object, int, string >> alignments = new Func<object, int, string>[] {
+                StringFormatting.RightJustified,
+                (object runner, int width) =>
+                    StringFormatting.RightJustified(((IRunner)runner).Name, width),
+                StringFormatting.LeftJustified,
+                (object team, int width) =>
+                    StringFormatting.LeftJustified(team == null ? string.Empty : ((ITeam)team).Name, width),
+                (object unsafeTime, int width) =>
+                {
+                    double? time = (double?)unsafeTime;
+                    return StringFormatting.LeftJustified(time.HasValue ? FormatTime(time.Value) : "DNF", width);
+                },
+                (object points, int width) =>
+                    StringFormatting.RightPadded(points, 3) + "   ",
+            };
+            results.ForEachIndexed(1, (result, place) =>
             {
-                ICollection<string> valueRow = new List<string> {
-                    place.ToString(),
-                    result.Runner.Name,
-                    result.Runner.EnrollmentYear.ToString(),
-                };
-                valueRow.Add(result.Team == null ? string.Empty : result.Team.Name);
-                if(result.Time != null)
-                {
-                    valueRow.Add(FormatTime(result.Time.Value));
-                    valueRow.Add(result.Points.ToString());
-                }
-                else
-                {
-                    valueRow.Add("DNF");
-                    valueRow.Add(string.Empty);
-                }
-                return valueRow.Cast<object>();
+                Table.Rows.Add(place, result.Runner, result.Runner.EnrollmentYear, result.Team, result.Time, result.Points);
             });
-            foreach(string line in base.Format(values, alignments))
-            {
-                yield return line;
-            }
+            return base.Format(alignments);
         }
 
         /// <summary>
@@ -91,5 +90,7 @@ namespace Ngol.Hytek
             Title = string.Format("{0} {1} m run CC", gender == Gender.Male ? "Men's " : "Women's ", distance);
             return Format(results.Sorted());
         }
+
+        #endregion
     }
 }
