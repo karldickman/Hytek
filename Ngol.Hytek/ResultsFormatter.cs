@@ -57,7 +57,7 @@ namespace Ngol.Hytek
                     StringFormatting.RightJustified(((IRunner)runner).Name, width),
                 StringFormatting.LeftJustified,
                 (object team, int width) =>
-                    StringFormatting.LeftJustified(team == null ? string.Empty : ((ITeam)team).Name, width),
+                    StringFormatting.LeftJustified(team == null || team == DBNull.Value ? string.Empty : ((ITeam)team).Name, width),
                 (object unsafeTime, int width) =>
                 {
                     double? time = (double?)unsafeTime;
