@@ -20,7 +20,7 @@ namespace Ngol.Hytek
         /// <summary>
         /// Create a new formatter.
         /// </summary>
-        public ResultsFormatter() : base(NewDataTable())
+        public ResultsFormatter() : base(NewTable())
         {
         }
 
@@ -31,15 +31,15 @@ namespace Ngol.Hytek
         /// <summary>
         /// Create the new <see cref="DataTable" /> to be formatted.
         /// </summary>
-        protected static DataTable NewDataTable()
+        protected static Table NewTable()
         {
-            DataTable table = new DataTable();
-            table.Columns.Add("", typeof(int));
-            table.Columns.Add("Name", typeof(IRunner));
-            table.Columns.Add("Year", typeof(int));
-            table.Columns.Add("School", typeof(ITeam));
-            table.Columns.Add("Finals", typeof(double));
-            table.Columns.Add("Points", typeof(int?));
+            Table table = new Table();
+            table.Columns.Add(" ", typeof(int), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("Name", typeof(IRunner), FormatRunner);
+            table.Columns.Add("Year", typeof(int?));
+            table.Columns.Add("School", typeof(ITeam), FormatTeam);
+            table.Columns.Add("Finals", typeof(double), FormatTime);
+            table.Columns.Add("Points", typeof(int?), FormatPoints);
             return table;
         }
 
@@ -51,26 +51,11 @@ namespace Ngol.Hytek
         /// </param>
         public IEnumerable<string> Format(IOrderedEnumerable<IPerformance> results)
         {
-            IEnumerable<Func<object, int, string >> alignments = new Func<object, int, string>[] {
-                StringFormatting.RightJustified,
-                (object runner, int width) =>
-                    StringFormatting.RightJustified(((IRunner)runner).Name, width),
-                StringFormatting.LeftJustified,
-                (object team, int width) =>
-                    StringFormatting.LeftJustified(team == null || team == DBNull.Value ? string.Empty : ((ITeam)team).Name, width),
-                (object unsafeTime, int width) =>
-                {
-                    double? time = (double?)unsafeTime;
-                    return StringFormatting.LeftJustified(time.HasValue ? FormatTime(time.Value) : "DNF", width);
-                },
-                (object points, int width) =>
-                    StringFormatting.RightPadded(points, 3) + "   ",
-            };
             results.ForEachIndexed(1, (result, place) =>
             {
                 Table.Rows.Add(place, result.Runner, result.Runner.EnrollmentYear, result.Team, result.Time, result.Points);
             });
-            return base.Format(alignments);
+            return base.Format();
         }
 
         /// <summary>
@@ -89,6 +74,50 @@ namespace Ngol.Hytek
         {
             Title = string.Format("{0} {1} m run CC", gender == Gender.Male ? "Men's " : "Women's ", distance);
             return Format(results.Sorted());
+        }
+
+        private static string FormatRunner(object runner)
+        {
+            return FormatRunner(runner as IRunner);
+        }
+
+        private static string FormatRunner(IRunner runner)
+        {
+            if(runner == null)
+            {
+                throw new ArgumentNullException("runner");
+            }
+            return runner.Name;
+        }
+
+        private static string FormatPoints(object points)
+        {
+            return FormatPoints(points as int?);
+        }
+
+        private static string FormatPoints(int? points)
+        {
+            return points.HasValue ? StringFormatting.RightPadded(points.Value, 3) : string.Empty;
+        }
+
+        private static string FormatTeam(object team)
+        {
+            return FormatTeam(team as ITeam);
+        }
+
+        private static string FormatTeam(ITeam team)
+        {
+            return team == null ? string.Empty : team.Name;
+        }
+
+        private static string FormatTime(object time)
+        {
+            return FormatTime(time as double?);
+        }
+
+        private static string FormatTime(double? time)
+        {
+            return time.HasValue ? HytekFormatter.FormatTime(time.Value) : "DNF";
         }
 
         #endregion

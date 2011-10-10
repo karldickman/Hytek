@@ -17,7 +17,7 @@ namespace Ngol.Hytek
 
         #region Physical implementation
 
-        private DataTable _table;
+        private Table _table;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace Ngol.Hytek
         /// <exception cref="ArgumentNullException">
         /// Thrown if an attempt is made to set this property to <see langword="null" />.
         /// </exception>
-        public DataTable Table
+        public Table Table
         {
             get { return _table; }
 
@@ -46,9 +46,9 @@ namespace Ngol.Hytek
         /// </summary>
         public string Title
         {
-            get { return Table.TableName; }
+            get { return Table.Title; }
 
-            protected set { Table.TableName = value; }
+            protected set { Table.Title = value; }
         }
 
         /// <summary>
@@ -69,14 +69,14 @@ namespace Ngol.Hytek
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="table"/> is <see langword="null" />.
         /// </exception>
-        public HytekFormatter(DataTable table)
+        public HytekFormatter(Table table)
         {
             if(table == null)
             {
                 throw new ArgumentNullException("table");
             }
             Table = table;
-            TableFormatter = new LabeledTableFormatter('\0', ' ', '\0', '=', '\0', '=', '\0', '=');
+            TableFormatter = new LabeledTableFormatter('\0', ' ', '\0', '=', '\0', '=', '=');
         }
 
         #endregion
@@ -84,33 +84,11 @@ namespace Ngol.Hytek
         #region Methods
 
         /// <summary>
-        /// Format the specified seconds into a time in minutes and seconds.
-        /// </summary>
-        /// <param name="time">
-        /// The time to format.
-        /// </param>
-        public static string FormatTime(double time)
-        {
-            int minutes = (int)(time / 60);
-            return string.Format("{0}:{1:00.00}", minutes, time - minutes * 60);
-        }
-
-        /// <summary>
         /// Format the <see cref="Table" />.
         /// </summary>
-        /// <param name="alignments">
-        /// The alignments of the columns.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="alignments"/> is <see langword="null" />.
-        /// </exception>
-        protected IEnumerable<string> Format(IEnumerable<Func<object, int, string>> alignments)
+        protected IEnumerable<string> Format()
         {
-            if(alignments == null)
-            {
-                throw new ArgumentNullException("alignments");
-            }
-            IEnumerable<string > lines = TableFormatter.Format(Table, alignments);
+            IEnumerable<string > lines = TableFormatter.Format(Table);
             if(Title != null)
             {
                 yield return StringFormatting.Centered(Title, lines.Max(line => lines.Count()));
@@ -119,6 +97,19 @@ namespace Ngol.Hytek
             {
                 yield return line;
             }
+        }
+
+        /// <summary>
+        /// Format the specified seconds into a time in minutes and seconds.
+        /// </summary>
+        /// <param name="time">
+        /// The time to format.
+        /// </param>
+        protected static string FormatTime(double time)
+        {
+            int minutes = Convert.ToInt32(Math.Floor(time / 60));
+            double seconds = time - minutes * 60;
+            return string.Format("{0}:{1:00.00}", minutes, seconds);
         }
 
         #endregion

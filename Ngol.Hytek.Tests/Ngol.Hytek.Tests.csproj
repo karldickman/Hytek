@@ -8,7 +8,7 @@
     <ProjectGuid>{F00D3E82-3277-4615-854E-09170401B245}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Ngol.Hytek.Tests</RootNamespace>
-    <AssemblyName>Hytek.Tests</AssemblyName>
+    <AssemblyName>Nogl.Hytek.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,6 +43,10 @@
     <ProjectReference Include="..\Ngol.Hytek\Ngol.Hytek.csproj">
       <Project>{537cf629-fa3c-4039-8941-13ba15278b2f}</Project>
       <Name>Ngol.Hytek</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Ngol.Utilities.Reflection\Ngol.Utilities.Reflection.csproj">
+      <Project>{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}</Project>
+      <Name>Ngol.Utilities.Reflection</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

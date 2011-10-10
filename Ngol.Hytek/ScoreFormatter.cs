@@ -6,6 +6,7 @@ using System.Linq;
 using Ngol.Hytek.Interfaces;
 using Ngol.Utilities.Collections.Extensions;
 using Ngol.Utilities.TextFormat;
+using Ngol.Utilities.TextFormat.Table;
 
 namespace Ngol.Hytek
 {
@@ -19,7 +20,7 @@ namespace Ngol.Hytek
         /// <summary>
         /// Create a new formatter.
         /// </summary>
-        public ScoreFormatter() : base(NewDataTable("Team Scores"))
+        public ScoreFormatter() : base(NewTable("Team Scores"))
         {
         }
 
@@ -33,20 +34,20 @@ namespace Ngol.Hytek
         /// <param name="tableName">
         /// The name to give the <see cref="DataTable" />.
         /// </param>
-        protected static DataTable NewDataTable(string tableName)
+        protected static Table NewTable(string tableName)
         {
-            DataTable dataTable = new DataTable(tableName);
-            dataTable.Columns.Add("Rank", typeof(int?));
-            dataTable.Columns.Add("Team", typeof(string));
-            dataTable.Columns.Add("Total");
-            dataTable.Columns.Add("   1", typeof(int?));
-            dataTable.Columns.Add("   2", typeof(int?));
-            dataTable.Columns.Add("   3", typeof(int?));
-            dataTable.Columns.Add("   4", typeof(int?));
-            dataTable.Columns.Add("   5", typeof(int?));
-            dataTable.Columns.Add("  *6", typeof(int?));
-            dataTable.Columns.Add("  *7", typeof(int?));
-            return dataTable;
+            Table table = new Table(tableName);
+            table.Columns.Add("Rank", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("Team", typeof(string), alignment: StringFormatting.LeftJustified);
+            table.Columns.Add("Total", alignment: StringFormatting.RightJustified);
+            table.Columns.Add("   1", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("   2", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("   3", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("   4", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("   5", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("  *6", typeof(int?), alignment: StringFormatting.RightJustified);
+            table.Columns.Add("  *7", typeof(int?), alignment: StringFormatting.RightJustified);
+            return table;
         }
 
         /// <summary>
@@ -64,18 +65,6 @@ namespace Ngol.Hytek
             {
                 throw new ArgumentNullException("scores");
             }
-            IEnumerable<Func<object, int, string >> alignments = new Func<object, int, string>[] {
-                StringFormatting.RightJustified,
-                StringFormatting.LeftJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-                StringFormatting.RightJustified,
-            };
             scores.ForEachIndexed((score, place) =>
             {
                 int?[] points = new int?[7];
@@ -87,7 +76,7 @@ namespace Ngol.Hytek
                 Table.Rows.Add(null, "  Top 5 Avg: " + FormatTime(score.TopFiveAverage));
                 Table.Rows.Add(null, "  Top 7 Avg: " + FormatTime(score.TopSevenAverage));
             });
-            return base.Format(alignments);
+            return base.Format();
         }
 
         #endregion

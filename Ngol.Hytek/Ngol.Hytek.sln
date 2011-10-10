@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Hytek", "Ngol.Hytek.csproj", "{537cf629-fa3c-4039-8941-13ba15278b2f}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{41611382-5A73-422B-97E2-1C14F33F9A5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.System", "..\..\Utilities\Ngol.Utilities.System\Ngol.Utilities.System.csproj", "{B53B9249-70AC-4414-95A8-0E7838885C2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table", "..\..\Utilities\Ngol.Utilities.TextFormat.Table\Ngol.Utilities.TextFormat.Table.csproj", "{977780FE-A189-4C4C-B1C6-CC6C38D81D81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat", "..\..\Utilities\Ngol.Utilities.TextFormat\Ngol.Utilities.TextFormat.csproj", "{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreLinq", "..\..\External\MoreLinq\MoreLinq\MoreLinq.csproj", "{8642E81B-3414-4C13-914F-05A4E600FE49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{537cf629-fa3c-4039-8941-13ba15278b2f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537cf629-fa3c-4039-8941-13ba15278b2f}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537cf629-fa3c-4039-8941-13ba15278b2f}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537cf629-fa3c-4039-8941-13ba15278b2f}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8642E81B-3414-4C13-914F-05A4E600FE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8642E81B-3414-4C13-914F-05A4E600FE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8642E81B-3414-4C13-914F-05A4E600FE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8642E81B-3414-4C13-914F-05A4E600FE49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B53B9249-70AC-4414-95A8-0E7838885C2B} = {41611382-5A73-422B-97E2-1C14F33F9A5D}
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81} = {41611382-5A73-422B-97E2-1C14F33F9A5D}
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B} = {41611382-5A73-422B-97E2-1C14F33F9A5D}
+		{8642E81B-3414-4C13-914F-05A4E600FE49} = {41611382-5A73-422B-97E2-1C14F33F9A5D}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Ngol.Hytek.csproj
+	EndGlobalSection
+EndGlobal
