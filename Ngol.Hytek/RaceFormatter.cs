@@ -54,41 +54,40 @@ namespace Ngol.Hytek
         /// <param name="race">
         /// A <see cref="IRace"/> to be formatted.
         /// </param>
-        public IEnumerable<string> Format(IRace race)
-        {
-            return Format(race, false);
-        }
-
-        /// <summary>
-        /// Format a race the way Hytek Meet Manger does.
-        /// </summary>
-        /// <param name="race">
-        /// A <see cref="IRace"/> to be formatted.
-        /// </param>
         /// <param name="showHeader">
         /// Should a header describing race location be shown or not?
         /// </param>
-        public IEnumerable<string> Format(IRace race, bool showHeader)
+        public IEnumerable<string> Format(IRace race, bool showHeader=false)
         {
             // Convert to list to ensure that enumeration happens only once
             IEnumerable<string> resultsLines = ResultsFormatter.Format(race.Gender, race.Distance, race.Results).ToList();
-            int width = resultsLines.Max(line => line.Length);
+            int width = resultsLines.Max(line => line.Length) + 2;
+            // Blank line before anything else
+            yield return string.Empty;
             if(showHeader)
             {
                 yield return StringFormatting.Centered(race.Meet.Name, width);
                 yield return StringFormatting.Centered(race.Date.ToString(), width);
                 yield return StringFormatting.Centered(race.Meet.Venue, width);
-                yield return "";
+                yield return string.Empty;
             }
             foreach(string line in resultsLines)
             {
-                yield return line;
+                yield return string.Format(" {0} ", line);
             }
-            yield return "";
+            // Blank line between results and scores.
+            yield return string.Empty;
             foreach(string line in ScoreFormatter.Format(race.Scores.OrderBy(score => score)))
             {
-                yield return line;
+                yield return string.Format(" {0} ", line);
             }
+            // Blank line after anything else
+            yield return string.Empty;
+        }
+
+        IEnumerable<string> IFormatter<IRace>.Format(IRace race)
+        {
+            return Format(race);
         }
 
         #endregion

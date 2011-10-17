@@ -88,10 +88,10 @@ namespace Ngol.Hytek
         /// </summary>
         protected IEnumerable<string> Format()
         {
-            IEnumerable<string > lines = TableFormatter.Format(Table);
+            IEnumerable<string> lines = TableFormatter.Format(Table);
             if(Title != null)
             {
-                yield return StringFormatting.Centered(Title, lines.Max(line => lines.Count()));
+                yield return StringFormatting.Centered(Title, lines.Max(line => line.Length));
             }
             foreach(string line in lines)
             {
