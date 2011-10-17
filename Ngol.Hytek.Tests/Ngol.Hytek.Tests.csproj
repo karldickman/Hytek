@@ -9,7 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Ngol.Hytek.Tests</RootNamespace>
     <AssemblyName>Nogl.Hytek.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
