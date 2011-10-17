@@ -53,7 +53,7 @@ namespace Ngol.Hytek
         {
             results.ForEachIndexed(1, (result, place) =>
             {
-                Table.Rows.Add(place, result.Runner, result.Runner.EnrollmentYear, result.Team, result.Time, result.Points);
+                Table.Rows.Add(place, result.Runner, result.Runner.GraduationYear, result.Team, result.Time, result.Points);
             });
             return base.Format();
         }

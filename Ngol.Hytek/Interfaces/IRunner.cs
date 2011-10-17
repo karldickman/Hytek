@@ -10,10 +10,7 @@ namespace Ngol.Hytek.Interfaces
         /// <summary>
         /// The year the runner enrolled in college.
         /// </summary>
-        int EnrollmentYear
-        {
-            get;
-        }
+        int? GraduationYear { get; }
 
         /// <summary>
         /// The name of the runner.

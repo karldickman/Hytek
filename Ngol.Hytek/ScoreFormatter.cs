@@ -65,14 +65,15 @@ namespace Ngol.Hytek
             {
                 throw new ArgumentNullException("scores");
             }
-            scores.ForEachIndexed((score, place) =>
+            scores.ForEachIndexed(1, (score, placeIndex) =>
             {
                 int?[] points = new int?[7];
                 score.Performances.Take(7).ForEachIndexed((runner, i) =>
                 {
                     points[i] = runner.Points;
                 });
-                Table.Rows.Add(score.Score.HasValue ? new int?(place) : null, score.Team, score.Score, points[0], points[1], points[2], points[3], points[4], points[5], points[6]);
+                int? place = score.HasScore ? placeIndex : (int?)null;
+                Table.Rows.Add(place, score.Team, score.Score, points[0], points[1], points[2], points[3], points[4], points[5], points[6]);
                 Table.Rows.Add(null, "  Top 5 Avg: " + FormatTime(score.TopFiveAverage));
                 Table.Rows.Add(null, "  Top 7 Avg: " + FormatTime(score.TopSevenAverage));
             });
