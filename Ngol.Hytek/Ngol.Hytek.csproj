@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{537cf629-fa3c-4039-8941-13ba15278b2f}</ProjectGuid>
+    <ProjectGuid>{537CF629-FA3C-4039-8941-13BA15278B2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Ngol.Hytek</RootNamespace>
     <AssemblyName>Ngol.Hytek</AssemblyName>
@@ -19,8 +19,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <GenerateDocumentation>true</GenerateDocumentation>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\Ngol.Hytek.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HytekFormatter.cs" />
@@ -57,10 +58,6 @@
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utilities\Ngol.Utilities.System\Ngol.Utilities.System.csproj">
-      <Project>{B53B9249-70AC-4414-95A8-0E7838885C2B}</Project>
-      <Name>Ngol.Utilities.System</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Ngol.Utilities.TextFormat.Table\Ngol.Utilities.TextFormat.Table.csproj">
       <Project>{977780FE-A189-4C4C-B1C6-CC6C38D81D81}</Project>
       <Name>Ngol.Utilities.TextFormat.Table</Name>
@@ -68,6 +65,10 @@
     <ProjectReference Include="..\..\Utilities\Ngol.Utilities.TextFormat\Ngol.Utilities.TextFormat.csproj">
       <Project>{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}</Project>
       <Name>Ngol.Utilities.TextFormat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Ngol.Utilities.System\Ngol.Utilities.System.csproj">
+      <Project>{B53B9249-70AC-4414-95A8-0E7838885C2B}</Project>
+      <Name>Ngol.Utilities.System</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

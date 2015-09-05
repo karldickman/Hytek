@@ -1,23 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Hytek", "Ngol.Hytek\Ngol.Hytek.csproj", "{05AFA6DF-F3AF-4144-9EB9-4E87377A5E3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Hytek", "Ngol.Hytek\Ngol.Hytek.csproj", "{537CF629-FA3C-4039-8941-13BA15278B2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{0B3FDB6E-5539-4F5D-B760-53F047CCA807}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packaging\Packages.mdproj", "{A18CA092-8042-43F1-AF5E-2E34DFAA2B73}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Packages", "Packaging\Packages.mdproj", "{A18CA092-8042-43F1-AF5E-2E34DFAA2B73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.TextFormat", "..\Utilities\Utilities.TextFormat\Utilities.TextFormat.csproj", "{E43C07F3-B3CD-4AC5-A574-AB3D0537E278}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat", "..\Utilities\Ngol.Utilities.TextFormat\Ngol.Utilities.TextFormat.csproj", "{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.TextFormat.Table", "..\Utilities\Utilities.TextFormat.Table\Utilities.TextFormat.Table.csproj", "{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table", "..\Utilities\Ngol.Utilities.TextFormat.Table\Ngol.Utilities.TextFormat.Table.csproj", "{977780FE-A189-4C4C-B1C6-CC6C38D81D81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.System", "..\Utilities\Ngol.Utilities.System\Ngol.Utilities.System.csproj", "{B53B9249-70AC-4414-95A8-0E7838885C2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.NUnit", "..\Utilities\Ngol.Utilities.NUnit\Ngol.Utilities.NUnit.csproj", "{60ED6A54-F0A6-4AFC-9E81-C783C935980C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.Reflection", "..\Utilities\Ngol.Utilities.Reflection\Ngol.Utilities.Reflection.csproj", "{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8909FAC7-5FDB-4126-B646-01AB7A5F5107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.TextFormat.Table.Tests", "..\Utilities\Utilities.TextFormat.Table.Tests\Utilities.TextFormat.Table.Tests.csproj", "{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table.Tests", "..\Utilities\Ngol.Utilities.TextFormat.Table.Tests\Ngol.Utilities.TextFormat.Table.Tests.csproj", "{53D8C722-9264-40A8-A46C-D2E590FC63B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.TextFormat.Tests", "..\Utilities\Utilities.TextFormat.Tests\Utilities.TextFormat.Tests.csproj", "{95DC5CA3-E276-464D-8395-3F2215E38A9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table", "..\Utilities\Ngol.Utilities.TextFormat.Table\Ngol.Utilities.TextFormat.Table.csproj", "{977780FE-A189-4C4C-B1C6-CC6C38D81D81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,37 +31,49 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{05AFA6DF-F3AF-4144-9EB9-4E87377A5E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05AFA6DF-F3AF-4144-9EB9-4E87377A5E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05AFA6DF-F3AF-4144-9EB9-4E87377A5E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05AFA6DF-F3AF-4144-9EB9-4E87377A5E3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95DC5CA3-E276-464D-8395-3F2215E38A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95DC5CA3-E276-464D-8395-3F2215E38A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95DC5CA3-E276-464D-8395-3F2215E38A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95DC5CA3-E276-464D-8395-3F2215E38A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537CF629-FA3C-4039-8941-13BA15278B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537CF629-FA3C-4039-8941-13BA15278B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537CF629-FA3C-4039-8941-13BA15278B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537CF629-FA3C-4039-8941-13BA15278B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53D8C722-9264-40A8-A46C-D2E590FC63B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53D8C722-9264-40A8-A46C-D2E590FC63B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53D8C722-9264-40A8-A46C-D2E590FC63B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53D8C722-9264-40A8-A46C-D2E590FC63B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60ED6A54-F0A6-4AFC-9E81-C783C935980C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60ED6A54-F0A6-4AFC-9E81-C783C935980C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60ED6A54-F0A6-4AFC-9E81-C783C935980C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60ED6A54-F0A6-4AFC-9E81-C783C935980C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A18CA092-8042-43F1-AF5E-2E34DFAA2B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A18CA092-8042-43F1-AF5E-2E34DFAA2B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E43C07F3-B3CD-4AC5-A574-AB3D0537E278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E43C07F3-B3CD-4AC5-A574-AB3D0537E278}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E43C07F3-B3CD-4AC5-A574-AB3D0537E278}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E43C07F3-B3CD-4AC5-A574-AB3D0537E278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53B9249-70AC-4414-95A8-0E7838885C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A18CA092-8042-43F1-AF5E-2E34DFAA2B73} = {0B3FDB6E-5539-4F5D-B760-53F047CCA807}
-		{E43C07F3-B3CD-4AC5-A574-AB3D0537E278} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
-		{A8E047D1-A649-4D9B-A8C8-5E37F41E92CC} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
-		{4A3E3EC3-154E-4D8E-B5D4-C931620BAA1D} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
-		{95DC5CA3-E276-464D-8395-3F2215E38A9D} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Ngol.Hytek\Ngol.Hytek.csproj
+		{C596C8BD-7CA7-4E11-9969-D0CCB140A64B} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
+		{B53B9249-70AC-4414-95A8-0E7838885C2B} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
+		{60ED6A54-F0A6-4AFC-9E81-C783C935980C} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
+		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
+		{53D8C722-9264-40A8-A46C-D2E590FC63B3} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
+		{977780FE-A189-4C4C-B1C6-CC6C38D81D81} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
 	EndGlobalSection
 EndGlobal
