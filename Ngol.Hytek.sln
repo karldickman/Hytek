@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8909FAC7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table.Tests", "..\Utilities\Ngol.Utilities.TextFormat.Table.Tests\Ngol.Utilities.TextFormat.Table.Tests.csproj", "{53D8C722-9264-40A8-A46C-D2E590FC63B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngol.Utilities.TextFormat.Table", "..\Utilities\Ngol.Utilities.TextFormat.Table\Ngol.Utilities.TextFormat.Table.csproj", "{977780FE-A189-4C4C-B1C6-CC6C38D81D81}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +72,5 @@ Global
 		{60ED6A54-F0A6-4AFC-9E81-C783C935980C} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
 		{8F46EFD3-2D0F-4DE1-9CBB-E775E2A2458A} = {6618C59A-A88C-4128-8EBB-9A29AF9FB1DF}
 		{53D8C722-9264-40A8-A46C-D2E590FC63B3} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
-		{977780FE-A189-4C4C-B1C6-CC6C38D81D81} = {8909FAC7-5FDB-4126-B646-01AB7A5F5107}
 	EndGlobalSection
 EndGlobal
